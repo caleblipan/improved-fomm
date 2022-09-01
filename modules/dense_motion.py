@@ -59,7 +59,7 @@ class DenseMotionNetwork(nn.Module):
             coordinate_grid = torch.matmul(jacobian, coordinate_grid.unsqueeze(-1))
             coordinate_grid = coordinate_grid.squeeze(-1)
 
-        driving_to_source = coordinate_grid
+        driving_to_source = kp_source['value'].view(bs, self.num_kp, 1, 1, 2) + coordinate_grid
 
         #adding background feature
         identity_grid = identity_grid.repeat(bs, 1, 1, 1, 1)
